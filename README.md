@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Desafio dio criando um app de lanterna usando sensor de movimento com React Native
 
 ## Criando um projeto 
@@ -142,3 +143,7 @@ const styles = StyleSheet.create({
 
 export default App;
 ```
+=======
+
+# dio-desafio-app-lanterna
+>>>>>>> 96c94989ceadfb037c7a48eceffaf006b1b9819b
