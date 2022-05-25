@@ -103,7 +103,7 @@ export default App;
 
 ``` JSX
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 const App = () => {
   return (
@@ -122,7 +122,7 @@ export default App;
 
 ``` JSX
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 const App = () => {
   return (
@@ -143,7 +143,728 @@ const styles = StyleSheet.create({
 
 export default App;
 ```
-=======
 
-# dio-desafio-app-lanterna
->>>>>>> 96c94989ceadfb037c7a48eceffaf006b1b9819b
+- E vamos criar um novo objeto de estilo para a _View_ chamado _containerLight_. E os objetos de estilo sejam chamados de acordo com a opção do usuário, sendo assim, se a const alternancia/_toggle_ for _true_ o _style_ vai receber _styles.containerLight_ senão/se for _false_ ele recebe _styles.container_:
+
+``` JSX
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+
+const App = () => {
+  const toggle = true;
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerLight: {
+    backgroundColor: 'white',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
+
+export default App;
+```
+
+- Em seguida, vamos adicionar um componente _Image_ para adicionarmos nossa imagem.Temos duas opções, importar/_import_ primeiro e referênciar dentro do _source_ o nome que atribuimos a esse import, ou realizar um _require_ diretamente no _source_, vamos ficar com a segunda opção:
+
+``` JSX
+import React from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+
+// import ecoLight from '../assets/icons/eco-light.png';
+
+const App = () => {
+  const toggle = true;
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <Image 
+        source={require('../assets/icons/eco-light.png')}
+        // source={ecoLight}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerLight: {
+    backgroundColor: 'white',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
+
+export default App;
+```
+
+- Vamos também, criar um objeto de estilo para quando a iluminação estiver ligada/_lightingOn_ e outro para quando a iluminação estiver desligada/_lightingOff_. Em seguida vamos aplicar no componente _Imagem_ de acordo com o _toggle_, se ele for _true_ então o _style_ vai receber _styles.lightingOn_ senão/for _false_ ele vai receber _styles.lightingOff_:
+
+```JSX
+import React from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+
+const App = () => {
+  const toggle = true;
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <Image 
+        style={toggle ? styles.lightingOn : styles.lightingOff} 
+        source={require('../assets/icons/eco-light.png')} 
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerLight: {
+    backgroundColor: 'white',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lightingOn: {
+    resizeMode: 'contain', // mesmo que a imagem seja maior que o tamanho definido ela vai se adequar no espaço delimitado
+    alignSelf: 'center',
+    height: 150, // valor em px
+    width: 150, 
+  },
+  lightingOff: {
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    tintColor: 'white', // ele consegue trocar a cor da imagem com a cor que passarmos
+    height: 150, 
+    width: 150, 
+  },
+})
+
+export default App;
+```
+
+- E vamos implentar a lógica para trocar a imagem de acordo com o _toggle_, no _source_ caso o _toggle_ seja _true_ vamos dar um _require_ na imagem _eco-light_ se não(caso seja _false_) vamos dar o _require_ na imagem _eco-light-off_:
+
+``` JSX
+import React from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+
+const App = () => {
+  const toggle = true;
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <Image 
+        style={styles.lightingOn} 
+        source={
+          toggle 
+            ? require('../assets/icons/eco-light-off.png') 
+            : require('../assets/icons/eco-light.png')
+          } 
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerLight: {
+    backgroundColor: 'white',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lightingOn: {
+    resizeMode: 'contain', // mesmo que a imagem seja maior que o tamanho definido ela vai se adequar no espaço delimitado
+    alignSelf: 'center',
+    height: 150, // valor em px
+    width: 150, 
+  },
+})
+
+export default App;
+```
+
+- Em seguida, vamos criar um novo componente _Image_ e vamos criar um objeto de estilo para ele chamado _logoDio_. E seguindo a mesma lógica aplicada anteriormente, caso o _toggle_ seja _true_ o _source_ vai receber o _require_ da imagem _logo-dio_ caso contrário/seja _false_ vai receber o _require_ da imagem _logo-dio-white_:
+
+``` JSX
+import React from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+
+const App = () => {
+  const toggle = true;
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <Image 
+        style={toggle ? styles.lightingOn : styles.lightingOff} 
+        source={
+          toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+      />
+      <Image 
+        style={styles.logoDio} 
+        source={
+          toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerLight: {
+    backgroundColor: 'white',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lightingOn: {
+    resizeMode: 'contain', // mesmo que a imagem seja maior que o tamanho definido ela vai se adequar no espaço delimitado
+    alignSelf: 'center',
+    height: 150, // valor em px
+    width: 150, 
+  },
+  lightingOff: {
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    tintColor: 'white', // ele consegue trocar a cor da imagem com a cor que passarmos
+    height: 150, 
+    width: 150, 
+  },
+  logoDio: {
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    height: 200, 
+    width: 200, 
+  },
+})
+
+export default App;
+```
+
+- E agora, vamos criar um botão. 
+Primeiramente, vamos importar o componente do react native chamado _TouchableOpacity_, quando o usuário apertar ele vai gerar um efeito de opacidade.
+Em seguida, vamos envolver os dois componentes _Image_ com ele... e dentro desse componente _TouchableOpacity_ vamos passar o evento _onPress={}_, desse modo iremos conseguir trocar o valor do _toggle_ através de uma arraw function(por enquanto não vamos implementar o toggle, pois vamos usar o _useState_ a seguir para isso):
+
+``` JSX
+import React from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+
+const App = () => {
+  const toggle = false;
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={() => {}}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerLight: {
+    backgroundColor: 'white',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lightingOn: {
+    resizeMode: 'contain', // mesmo que a imagem seja maior que o tamanho definido ela vai se adequar no espaço delimitado
+    alignSelf: 'center',
+    height: 150, // valor em px
+    width: 150, 
+  },
+  lightingOff: {
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    tintColor: 'white', // ele consegue trocar a cor da imagem com a cor que passarmos
+    height: 150, 
+    width: 150, 
+  },
+  logoDio: {
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    height: 200, 
+    width: 200, 
+  },
+})
+
+export default App;
+```
+
+## useState
+
+- Como o react só reflete mundanças na interface quando temos a mudança do estado, vamos importar e usar o hook _useState_ para a variável _taggle_. Vamos passar o valor inicial para _toggle_ como _false_ e o _setToggle_ vai receber a função que irá alterar o estado de _toggle_:
+
+``` JSX
+import React, { useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+
+const App = () => {
+  const [toggle, setToggle] = useState(false);
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={() => {}}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+// [...]
+
+export default App;
+```
+
+- E agora, podemos passar a função _setToggle_ para o evento _onPress_, onde essa função vai receber uma função callback que vai pegar o valor antigo/_oldToggle_ e vai retornar/_return_ o contrário/_!oldToggle_:
+
+``` JSX
+import React, { useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+
+const App = () => {
+  const [toggle, setToggle] = useState(false);
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={() => {
+        setToggle(oldToggle => {
+          return !oldToggle;
+        })
+        // Podemos usar arrow funcion para simplificar, assim:
+        // setToggle(oldToggle => !oldToggle);
+      }}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+// [...]
+
+export default App;
+```
+
+- Para concluir, como não é uma boa prática colocarmos a função diretamente dentro do evento, pois não sabemos o contexto dela, vamos criar uma função callback.
+Vamos criar uma const chamada _handleOnPress_ e vamos passar para ela uma função arrow e dentro dela vamos inserir o conteúdo que inserimos diretamente no evento _onPress_.
+E no _onPress_ ao invés de passar toda essa função, vamos passar o _handleOnPress_:
+
+``` JSX
+import React, { useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+
+const App = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleOnPress = function() {
+    setToggle(oldToggle => !oldToggle);
+  };
+  // Podemos usar arrow funcion para simplificar, assim:
+  // const handleOnPress = () => setToggle(oldToggle => !oldToggle);
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={handleOnPress}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+// [...]
+
+export default App;
+```
+
+## useEffect
+
+- Vamos usar o _useEffect_ para escutar as alterações do estado do _toggle_. Precisamos disso para conseguirmos ligar o flash do celular.
+Para isso, vamos importar o hook _useEffect_ do react, e em seguida vamos usar a função _useEffect_ passando o _toggle_ como dependência e uma função callback que vai ser chamada quando o estado de _toggle_ for alterado:
+
+``` JSX
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+
+const App = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleOnPress = function() {
+    setToggle(oldToggle => !oldToggle);
+  };
+
+  useEffect(function() {
+    // Liga flash do celular(controlado pela lib Touch)
+  }, [toggle]);
+
+  // Podemos usar arrow funcion para simplificar, assim:
+  // useEffect(() => {
+    // Liga flash do celular
+  // }, [toggle]);
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={handleOnPress}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+// [...]
+
+export default App;
+```
+
+## Usando a lib Touch
+
+- Primeiramente, vamos importar o _Torch_ do react native touch.
+Em seguida, dentro do _useEffect_ vamos passa _Touch.switchState_, o qual se receber _true_ vai ligar a lanterna do celular e se receber _false_ vai desligar a lanterna do celular. Então, ele irá receber o próprio _toggle_ que já tem os valores(true/false) de acordo com os cliques que o usuário irá dá na tela(liga/desliga):
+
+``` JSX
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import Torch from 'react-native-torch';
+
+const App = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleOnPress = function() {
+    setToggle(oldToggle => !oldToggle);
+  };
+
+  useEffect(function() {
+    Torch.switchState(toggle);
+  }, [toggle]);
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={handleOnPress}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+// [...]
+
+export default App;
+```
+
+## Usando a lib Shake
+
+Essa lib que irá informar quando trocar o estado de _toggle_ de acordo com o "balançar" do celular. Ela irá ouvir o evento nativo de quando o celular é "chacoalhado".
+
+- Primeiramente, vamos importar o _RNShake_ do react native shake.
+Em seguida, vamos criar outro _useEffect_ e ele irá receber uma função callback e ela vai ouvir quando o celular balançar, para isso vamos inserir uma inscrição de um evento... criando uma const chamada _subscription_ que vai receber um evento que vai vir do _RNShake_ e ele vai chamar o método que vai adicionar "alguém para ouvir" _.addListener_:
+
+``` JSX
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import Torch from 'react-native-torch';
+import RNShake from 'react-native-shake';
+
+const App = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleOnPress = function() {
+    setToggle(oldToggle => !oldToggle);
+  };
+
+  useEffect(function() {
+    Torch.switchState(toggle);
+  }, [toggle]);
+
+  useEffect(function() {
+    const subscription = RNShake.addListener(function() {
+      
+    }, []);
+  });
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={handleOnPress}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+// [...]
+
+export default App;
+```
+
+- E esse método _RNShake.addListener_ vai receber uma função callback para saber o que fazer com esse evento, no caso, se ele ouvir ele vai chamar o _setToggle_ o qual vai receber o valor antigo/_oldToggle_ e retornar o contrário/_!oldToggle_:
+
+``` JSX
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import Torch from 'react-native-torch';
+import RNShake from 'react-native-shake';
+
+const App = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleOnPress = function() {
+    setToggle(oldToggle => !oldToggle);
+  };
+
+  useEffect(function() {
+    Torch.switchState(toggle);
+  }, [toggle]);
+
+  useEffect(function() {
+    const subscription = RNShake.addListener(function() {
+      setToggle(oldToggle => !oldToggle);
+    });
+  }, []);
+
+  // Podemos usar arrow funcion para simplificar, assim:
+  // useEffect(() =>
+  //   const subscription = RNShake.addListener(() => {
+  //     setToggle(oldToggle => !oldToggle);
+  //   });
+  // }, []);
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={handleOnPress}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+// [...]
+
+export default App;
+```
+
+- Uma coisa que devemos saber é que, toda vez que colocarmos um evento, temos que remover o ouvinte dele, senão, toda vez que o componente renderizar ele vai ficar ouvindo.
+Para isso, vamos usar o método _remove_ que todo evento tem, que ele vai se auto-remover como ouvinte:
+
+``` JSX
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import Torch from 'react-native-torch';
+import RNShake from 'react-native-shake';
+
+const App = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleOnPress = function() {
+    setToggle(oldToggle => !oldToggle);
+  };
+
+  useEffect(function() {
+    Torch.switchState(toggle);
+  }, [toggle]);
+
+  useEffect(function() {
+    const subscription = RNShake.addListener(function() {
+      setToggle(oldToggle => !oldToggle);
+    });
+
+    // Essa função vai ser chamada com o componente for ser desmontado
+    return function() {
+      subscription.remove;
+    }
+    // Podemos usar arrow funcion para simplificar, assim:
+    return function() => subscription.remove;
+
+  }, []);
+
+  return (
+    <View style={toggle ? styles.containerLight : styles.container}>
+      <TouchableOpacity onPress={handleOnPress}>
+        <Image 
+          style={toggle ? styles.lightingOn : styles.lightingOff} 
+          source={
+            toggle 
+            ? require('../assets/icons/eco-light.png') 
+            : require('../assets/icons/eco-light-off.png')
+          } 
+          />
+        <Image 
+          style={styles.logoDio} 
+          source={
+            toggle 
+            ? require('../assets/icons/logo-dio.png') 
+            : require('../assets/icons/logo-dio-white.png')
+          } 
+          />
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+// [...]
+```
