@@ -952,11 +952,11 @@ Podemos encerrar qualquer instância do bundler em execução, pois todo nosso f
 ./gradlew assembleRelease
 ```
 
-- Feito isso, ele vai gerar o nosso APK dentro de _android/app/build/outputs/apk/release_ o com o nome _app-release.apk_;
+- Feito isso, ele vai gerar o nosso APK dentro de _android/app/build/outputs/apk/release_ com o nome _app-release.apk_;
 
 - Vamos acessar esse diretório no terminal;
 
-- Em seguida, vamos inserir nosso dispositivo movel via USB e ativar o modo desenvolvedor nele e ativar a depuração USB;
+- Em seguida, vamos inserir nosso dispositivo movel via USB e ativar o modo desenvolvedor nele e a depuração USB;
 
 - Depois de conectar ele como emulador com o adb, vamos instalar o app rodando o comando:
 
