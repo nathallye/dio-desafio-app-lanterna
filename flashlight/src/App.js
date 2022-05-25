@@ -7,23 +7,19 @@ import RNShake from 'react-native-shake';
 const App = () => {
   const [toggle, setToggle] = useState(false);
 
-  const handleOnPress = function() {
-    setToggle(oldToggle => !oldToggle);
-  };
+  const handleOnPress = () => setToggle(oldToggle => !oldToggle);
 
-  useEffect(function() {
+  useEffect(() => {
     Torch.switchState(toggle);
   }, [toggle]);
 
-  useEffect(function() {
-    const subscription = RNShake.addListener(function() {
+  useEffect(() => {
+    const subscription = RNShake.addListener(() => {
       setToggle(oldToggle => !oldToggle);
     });
 
     // Essa função vai ser chamada com o componente for ser desmontado
-    return function() {
-      subscription.remove;
-    }
+    return () => subscription.remove;
   }, []);
 
   return (
