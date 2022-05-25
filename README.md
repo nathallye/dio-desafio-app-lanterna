@@ -1,5 +1,7 @@
-<<<<<<< HEAD
 # Desafio dio criando um app de lanterna usando sensor de movimento com React Native
+
+![image](https://user-images.githubusercontent.com/86172286/170323259-0d3d145a-9641-4c3d-bdf0-b5da171f2d06.png)
+![image](https://user-images.githubusercontent.com/86172286/170323278-186c6ec3-5060-49cc-8ab0-e8011765ffc7.png)
 
 ## Criando um projeto 
 
