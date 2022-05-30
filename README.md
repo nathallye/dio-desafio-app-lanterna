@@ -17,7 +17,7 @@ npx react-native init [nome-do-projeto]
 npx react-native start
 ```
 
-- Obs.: Antes de startar o android, é necessário se conectar ao IP do emulado, rodando o comando abaixo:
+- Obs.: Antes de startar o android, é necessário se conectar a máquina virtual ao IP do emulador, rodando o comando abaixo:
 
 ```
 adb connect 10.0.2.2:5555
